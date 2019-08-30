@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  audit:
+    build:
+      context: .
+    environment:
+      BROWSERLESS_ENDPOINT: 'http://browserless:3000'
+      AUDIT_URL: ${AUDIT_URL:-https://www.browserless.io/}
+    volumes:
+      - './index.js:/usr/src/app/index.js:ro'
+      - './audit-config.js:/usr/src/app/audit-config.js'
+    depends_on:
+      - browserless
+
+  browserless:
+    image: browserless/chrome
+    environment:
+      PORT: 3000
+    shm_size: 1gb
+    volumes:
+      - browsertime_data:/browsertime
+
+volumes:
+  browsertime_data: ~
