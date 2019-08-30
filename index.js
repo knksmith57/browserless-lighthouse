@@ -22,7 +22,6 @@ const main = (exports.main = async url => {
 
 if (require.main === module) {
   const [, , auditUrl = AUDIT_URL] = process.argv
-  console.log({ auditUrl, BROWSERLESS_ENDPOINT, hostname, port })
 
   require('hard-rejection')()
   main(auditUrl)
