@@ -9,12 +9,13 @@ services:
       AUDIT_URL: ${AUDIT_URL:-https://www.browserless.io/}
     volumes:
       - './index.js:/usr/src/app/index.js:ro'
-      - './audit-config.js:/usr/src/app/audit-config.js'
+      - './lib:/usr/src/app/lib:ro'
     depends_on:
       - browserless
 
   browserless:
     image: browserless/chrome
     environment:
+      FUNCTION_EXTERNALS: '["lighthouse"]'
       PORT: 3000
     shm_size: 1gb

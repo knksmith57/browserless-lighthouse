@@ -1,22 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
-const auditConfig = require('./audit-config')
-const lighthouse = require('lighthouse')
-const { URL } = require('url')
+const auditConfig = require('./lib/audit-config')
+const { AuditClient } = require('./lib/browserless')
 
 const { AUDIT_URL, BROWSERLESS_ENDPOINT } = process.env
-const { hostname, port } = new URL(BROWSERLESS_ENDPOINT)
 
 const main = (exports.main = async url => {
-  const { lhr } = await lighthouse(
-    url,
-    {
-      hostname,
-      port
-    },
-    auditConfig
-  )
+  const client = new AuditClient({ baseUrl: BROWSERLESS_ENDPOINT })
+  const lhr = await client.audit(url, { configJson: auditConfig })
   console.log(JSON.stringify(lhr))
 })
 
