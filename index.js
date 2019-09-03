@@ -8,7 +8,7 @@ const { AUDIT_URL, BROWSERLESS_ENDPOINT } = process.env
 
 const main = (exports.main = async url => {
   const client = new AuditClient({ baseUrl: BROWSERLESS_ENDPOINT })
-  const lhr = await client.audit(url, { configJson: auditConfig })
+  const lhr = await client.audit(url, { config: auditConfig })
   console.log(JSON.stringify(lhr))
 })
 
