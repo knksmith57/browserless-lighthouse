@@ -5,7 +5,7 @@ services:
     build:
       context: .
     environment:
-      BROWSERLESS_ENDPOINT: 'http://browserless:3000'
+      BROWSERLESS_ENDPOINT: 'http://browserless:3000?headless=false'
       AUDIT_URL: ${AUDIT_URL:-https://www.browserless.io/}
     volumes:
       - './index.js:/usr/src/app/index.js:ro'
@@ -17,5 +17,7 @@ services:
     image: browserless/chrome
     environment:
       FUNCTION_EXTERNALS: '["lighthouse"]'
+      KEEP_ALIVE: 'false'
       PORT: 3000
+      PREBOOT_CHROME: 'true'
     shm_size: 1gb
