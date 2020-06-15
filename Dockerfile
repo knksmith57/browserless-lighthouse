@@ -11,5 +11,5 @@ RUN npm ci --production
 
 COPY . ./
 
-ENTRYPOINT [ "/sbin/tini", "--" ]
-CMD [ "node", "index.js" ]
+ENTRYPOINT [ "/sbin/tini", "--", "node", "index.js" ]
+CMD [ ]
